@@ -488,4 +488,19 @@ mod tests {
         let uri = input.parse::<Uri<'_, _>>();
         assert!(uri.is_err());
     }
+
+    #[test]
+    fn duplicate_params() {
+        let duplicate_label = "bitcoin:1andreas3batLhQa2FawWjeyjCqyBzypd?label=foo&label=bar";
+        let uri = duplicate_label.parse::<Uri<'_, _>>();
+        assert!(uri.is_err());
+
+        let duplicate_amount = "bitcoin:1andreas3batLhQa2FawWjeyjCqyBzypd?amount=123&amount=456";
+        let uri = duplicate_amount.parse::<Uri<'_, _>>();
+        assert!(uri.is_err());
+
+        let duplicate_message = "bitcoin:1andreas3batLhQa2FawWjeyjCqyBzypd?message=foo&message=bar";
+        let uri = duplicate_message.parse::<Uri<'_, _>>();
+        assert!(uri.is_err());
+    }
 }
